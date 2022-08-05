@@ -1,7 +1,7 @@
 import Foundation
 import os.log
 
-protocol FLoggable {
+public protocol FLoggable {
     init(subsystem: String, category: String)
     func debug(_ s:String)
     func info(_ s:String)
@@ -44,30 +44,30 @@ enum FLogLevel: String {
   See ``FLog`` for the typical usage.
  */
 @available(iOS 14.0, *)
-struct FLogBase {
+public struct FLogBase {
     public static let subsystem = Bundle.main.bundleIdentifier ?? "FLog"
     public static let category = "FLog"
     
-    let logger: FLoggable
+    public let logger: FLoggable
     
     
-    func debug(_ message: String) {
+    public func debug(_ message: String) {
         logger.debug(FLogLevel.debug.pretty(message))
     }
     
-    func info(_ message: String) {
+    public func info(_ message: String) {
         logger.info(FLogLevel.info.pretty(message))
     }
     
-    func notice(_ message: String) {
+    public func notice(_ message: String) {
         logger.notice(FLogLevel.notice.pretty(message))
     }
     
-    func warning(_ message: String) {
+    public func warning(_ message: String) {
         logger.warning(FLogLevel.warning.pretty(message))
     }
     
-    func error(_ message: String) {
+    public func error(_ message: String) {
         logger.error(FLogLevel.error.pretty(message))
     }
 
@@ -96,10 +96,9 @@ class MyClass {
 ```
 */
 @available(iOS 14.0, *)
-struct FLog<T>{
-    static func make() -> FLogBase {
+public struct FLog<T>{
+    public static func make() -> FLogBase {
         let logName = String(describing: T.self as Any)
         return FLogBase(category: logName)
     }
 }
-
